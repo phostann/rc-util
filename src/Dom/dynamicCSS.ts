@@ -102,17 +102,26 @@ export function injectCSS(css: string, option: Options = {}) {
       );
 
       if (existStyle.length) {
-        container.insertBefore(
-          styleNode,
-          existStyle[existStyle.length - 1].nextSibling,
-        );
+        try {
+          container.insertBefore(
+            styleNode,
+            existStyle[existStyle.length - 1].nextSibling,
+          );
+          return styleNode;
+        } catch {
 
-        return styleNode;
+        }
+
       }
     }
 
     // Use `insertBefore` as `prepend`
-    container.insertBefore(styleNode, firstChild);
+    try {
+
+      container.insertBefore(styleNode, firstChild);
+    } catch {
+
+    }
   } else {
     container.appendChild(styleNode);
   }
